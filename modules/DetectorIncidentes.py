@@ -1,6 +1,6 @@
 ﻿import os 
 import glob
-
+from .utils import Colors
 
 
 class DetectorIncidentes: 
@@ -23,30 +23,33 @@ class DetectorIncidentes:
 
     def _existeIncidencia(self, nombre_archivo: str) :
         for incidencia in self.elementosIncidencia:
-            if incidencia.upper() in nombre_archivo.upper().split():
+            if incidencia.upper() in nombre_archivo.upper():
                 # Basta la existencia de almenos uno 
                 return True
-            
-            return False
+            else: 
+                continue
+
+        return False
 
 
     def detectar_incidentes(self): 
 
         for dir, sub, files in self.recorrido: 
-            print(f"\nRuta Actual: {dir}")
+            Colors.p("CYAN", f"\nRuta Actual: {dir}")
 
             if len(files) == 0: 
-                print(f"La ruta actual no tiene archivos")
+                Colors.p('RED', f"La ruta actual no tiene archivos")
                 continue
 
-            print(f"Cuenta con {len(files)} archivos")
+            Colors.p('BLUE', f"Cuenta con {len(files)} archivos")
             for indice_file, file in enumerate(files): 
-                print(file)
                 # Verificar si existe incidencia en el archivo 
                 if self._existeIncidencia(file): 
-                    print(f"El archivo {file} tiene incidencia")
+                    Colors.p('YELLOW',f"|| El archivo {file} tiene incidencia ||")
                     # Si existe incidencia, se corrige el nombre del archivo
                     self.archivosPorCorregir.append((dir, file))
 
-
+                else: 
+                    continue
+                    # print(f"NO EXISTE INCIDENCIA EN: {file}")
     

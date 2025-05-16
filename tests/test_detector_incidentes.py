@@ -17,10 +17,10 @@ def setup_test_environment():
     open(os.path.join(TEST_DIR, "archivo1.txt"), "w").close()
     open(os.path.join(TEST_DIR, "documento.docx"), "w").close()
 
-    # Archivos con incidencia
+    # Archivos que tendran la incidencia 
     open(os.path.join(TEST_DIR, "áccento.txt"), "w").close()
     open(os.path.join(TEST_DIR, "ñandú.pdf"), "w").close()
-    open(os.path.join(TEST_DIR, "file_with_�_char.txt"), "w").close()
+    open(os.path.join(TEST_DIR, "Pr�stamo char.txt"), "w").close()
 
     yield
 
@@ -41,7 +41,7 @@ def test_existeIncidencia(setup_test_environment):
     # Archivos con incidencias
     assert detector._existeIncidencia("áccento.txt")
     assert detector._existeIncidencia("ñandú.pdf")
-    assert detector._existeIncidencia("file_with_�_char.txt")
+    assert detector._existeIncidencia("Pr�stamo char.txt")
 
 
 def test_detectar_incidentes(setup_test_environment):
@@ -54,7 +54,7 @@ def test_detectar_incidentes(setup_test_environment):
     expected_files = [
         (TEST_DIR, "áccento.txt"),
         (TEST_DIR, "ñandú.pdf"),
-        (TEST_DIR, "file_with_�_char.txt")
+        (TEST_DIR, "Pr�stamo char.txt")
     ]
 
     assert set(detector.archivosPorCorregir) == set(expected_files)
